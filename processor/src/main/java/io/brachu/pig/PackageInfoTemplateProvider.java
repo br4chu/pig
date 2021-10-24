@@ -1,0 +1,62 @@
+package io.brachu.pig;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.TypeElement;
+
+final class PackageInfoTemplateProvider {
+
+    private static final String UNSUPPORTED_OPERATION_MESSAGE = "Package Info Generator does not support this compiler tool. "
+            + "Processed element was of type: %s. Feel free to raise a feature request over at github.";
+
+    private final MissingTemplate missingTemplate;
+    private final Map<Path, PackageInfoTemplate> templateCache = new HashMap<>();
+
+    private final SunFilePathResolver sunFilePathResolver = new SunFilePathResolver();
+
+    PackageInfoTemplateProvider(ProcessingEnvironment processingEnv) {
+        missingTemplate = new MissingTemplate(processingEnv);
+    }
+
+    PackageInfoTemplate provideFor(TypeElement type) throws IOException {
+        if (sunFilePathResolver.canResolve(type)) {
+            return resolveTemplate(sunFilePathResolver.resolve(type));
+        } else {
+            throw new UnsupportedOperationException(String.format(UNSUPPORTED_OPERATION_MESSAGE, type.getClass().getCanonicalName()));
+        }
+    }
+
+    private PackageInfoTemplate resolveTemplate(Path path) throws IOException {
+        if (path == null) {
+            return missingTemplate;
+        } else {
+            PackageInfoTemplate cachedTemplate = templateCache.get(path);
+            if (cachedTemplate != null) {
+                return cachedTemplate;
+            } else {
+                PackageInfoTemplate template = findTemplateIn(path);
+                if (template == null) {
+                    template = resolveTemplate(path.getParent());
+                }
+                templateCache.put(path, template);
+                return template;
+            }
+        }
+    }
+
+    private PackageInfoTemplate findTemplateIn(Path path) throws IOException {
+        Path file = path.resolve("pig.template");
+        if (Files.isRegularFile(file)) {
+            String content = Files.readString(file);
+            return new StandardPackageInfoTemplate(content);
+        } else {
+            return null;
+        }
+    }
+
+}

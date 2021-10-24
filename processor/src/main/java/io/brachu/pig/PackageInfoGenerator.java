@@ -1,8 +1,10 @@
-package io.brachu.packageinfo.generator;
+package io.brachu.pig;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -43,53 +45,59 @@ public final class PackageInfoGenerator extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (!roundEnv.processingOver()) {
-            Map<String, PackageElement> packages = new HashMap<>();
-
+            Map<String, TypeElement> packagesToProcess = new HashMap<>();
             for (Element element : roundEnv.getRootElements()) {
                 if (element instanceof TypeElement) {
                     TypeElement typeElement = (TypeElement) element;
                     if (typeElement.getNestingKind() == NestingKind.TOP_LEVEL) {
-                        PackageElement pkg = (PackageElement) typeElement.getEnclosingElement();
-                        String pkgName = pkg.getQualifiedName().toString();
-                        if (!ignoredPackages.contains(pkgName)) {
-                            packages.put(pkgName, pkg);
-                        }
+                        processTopLevelType(packagesToProcess, typeElement);
                     }
-                }
-                if (element instanceof PackageElement) {
-                    PackageElement pkg = (PackageElement) element;
-                    String pkgName = pkg.getQualifiedName().toString();
-                    ignoredPackages.add(pkgName);
-                    packages.remove(pkgName);
+                } else if (element instanceof PackageElement) {
+                    processPackage(packagesToProcess, (PackageElement) element);
                 }
             }
-            generatePackageInfos(packages);
+            generatePackageInfos(packagesToProcess);
         }
         return false;
     }
 
-    private void generatePackageInfos(Map<String, PackageElement> packages) {
+    private void processTopLevelType(Map<String, TypeElement> packagesToProcess, TypeElement type) {
+        PackageElement pkg = (PackageElement) type.getEnclosingElement();
+        String pkgName = pkg.getQualifiedName().toString();
+        if (!packagesToProcess.containsKey(pkgName) && !ignoredPackages.contains(pkgName)) {
+            packagesToProcess.put(pkgName, type);
+        }
+    }
+
+    private void processPackage(Map<String, TypeElement> packagesToProcess, PackageElement pkg) {
+        String pkgName = pkg.getQualifiedName().toString();
+        ignoredPackages.add(pkgName);
+        packagesToProcess.remove(pkgName);
+    }
+
+    private void generatePackageInfos(Map<String, TypeElement> packagesToProcess) {
         Filer filer = processingEnv.getFiler();
         Messager messager = processingEnv.getMessager();
-        for (Entry<String, PackageElement> entry : packages.entrySet()) {
+        PackageInfoTemplateProvider templateProvider = new PackageInfoTemplateProvider(processingEnv);
+
+        for (Entry<String, TypeElement> entry : packagesToProcess.entrySet()) {
             String pkgName = entry.getKey();
-            PackageElement pkg = entry.getValue();
+            TypeElement type = entry.getValue();
+            PackageElement pkg = (PackageElement) type.getEnclosingElement();
             try {
                 JavaFileObject fileObject = filer.createSourceFile(pkgName + ".package-info", pkg);
-                try (PrintWriter out = new PrintWriter(new OutputStreamWriter(fileObject.openOutputStream()))) {
-                    out.println("@Generated(\"" + getClass().getCanonicalName() + "\")");
-                    out.println("@NonNullApi");
-                    out.println("package " + pkgName + ";");
-                    out.println();
-                    out.println("import javax.annotation.processing.Generated;");
-                    out.println();
-                    out.println("import org.springframework.lang.NonNullApi;");
-                    out.flush();
+                try (Writer writer = openWriter(fileObject)) {
+                    templateProvider.provideFor(type).write(writer, pkgName);
+                    writer.flush();
                 }
             } catch (IOException e) {
                 messager.printMessage(Diagnostic.Kind.ERROR, "I/O Exception during creation of package-info.java file: " + e.getMessage(), pkg);
             }
         }
+    }
+
+    private BufferedWriter openWriter(JavaFileObject fileObject) throws IOException {
+        return new BufferedWriter(new OutputStreamWriter(fileObject.openOutputStream(), StandardCharsets.UTF_8));
     }
 
 }
