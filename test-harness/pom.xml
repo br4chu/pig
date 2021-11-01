@@ -10,7 +10,6 @@
         <java.version>11</java.version>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
-        <maven.jar.skip>true</maven.jar.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Maven plugin versions -->
