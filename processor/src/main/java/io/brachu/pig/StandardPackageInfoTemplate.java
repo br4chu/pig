@@ -11,12 +11,15 @@ final class StandardPackageInfoTemplate implements PackageInfoTemplate {
     private static final String GENERATED_CANONICAL_NAME = Generated.class.getCanonicalName();
     private static final String PIG_CANONICAL_NAME = PackageInfoGenerator.class.getCanonicalName();
 
+    private static final String GENERATED_ANNOTATION_STRING = "@" + GENERATED_CANONICAL_NAME + "(\"" + PIG_CANONICAL_NAME + "\")";
+    private static final String GENERATED_ANNOTATION_SHORT_STRING = "@" + GENERATED_SIMPLE_NAME + "(\"" + PIG_CANONICAL_NAME + "\")";
+
     private final String templateContent;
 
     StandardPackageInfoTemplate(String templateContent) {
         this.templateContent = templateContent
-                .replace("${GENERATED}", String.format("@%s(\"%s\")", GENERATED_CANONICAL_NAME, PIG_CANONICAL_NAME))
-                .replace("${GENERATED_SHORT}", String.format("@%s(\"%s\")", GENERATED_SIMPLE_NAME, PIG_CANONICAL_NAME))
+                .replace("${GENERATED}", GENERATED_ANNOTATION_STRING)
+                .replace("${GENERATED_SHORT}", GENERATED_ANNOTATION_SHORT_STRING)
                 .replace("${GENERATED_ANNOTATION_CANONICAL_NAME}", GENERATED_CANONICAL_NAME);
     }
 
