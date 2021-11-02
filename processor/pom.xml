@@ -56,6 +56,7 @@
         <!-- Dependency versions -->
         <auto-service.version>1.0</auto-service.version>
         <checkstyle.version>9.0.1</checkstyle.version>
+        <jdt-apt.version>1.4.0</jdt-apt.version>
 
         <!-- Maven plugin versions -->
         <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
@@ -91,6 +92,13 @@
             <groupId>com.google.auto.service</groupId>
             <artifactId>auto-service-annotations</artifactId>
             <version>${auto-service.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
+            <version>${jdt-apt.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

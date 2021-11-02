@@ -18,6 +18,7 @@ final class PackageInfoTemplateProvider {
     private final Map<Path, PackageInfoTemplate> templateCache = new HashMap<>();
 
     private final SunFilePathResolver sunFilePathResolver = new SunFilePathResolver();
+    private final EclipseFilePathResolver eclipseFilePathResolver = new EclipseFilePathResolver();
 
     PackageInfoTemplateProvider(ProcessingEnvironment processingEnv) {
         missingTemplate = new MissingTemplate(processingEnv);
@@ -26,6 +27,8 @@ final class PackageInfoTemplateProvider {
     PackageInfoTemplate provideFor(TypeElement type) throws IOException {
         if (sunFilePathResolver.canResolve(type)) {
             return resolveTemplate(sunFilePathResolver.resolve(type));
+        } else if (eclipseFilePathResolver.canResolve(type)) {
+            return resolveTemplate(eclipseFilePathResolver.resolve(type));
         } else {
             throw new UnsupportedOperationException(String.format(UNSUPPORTED_OPERATION_MESSAGE, type.getClass().getCanonicalName()));
         }

@@ -12,11 +12,15 @@
         <maven.install.skip>true</maven.install.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- Dependencies -->
+        <jdt.version>3.27.0</jdt.version>
+        <jdt-apt.version>1.4.0</jdt-apt.version>
+        <spock.version>2.0-groovy-3.0</spock.version>
+
         <!-- Maven plugin versions -->
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <build-helper-plugin.version>3.2.0</build-helper-plugin.version>
         <gmavenplus-plugin.version>1.13.0</gmavenplus-plugin.version>
-        <spock.version>2.0-groovy-3.0</spock.version>
         <surefire-plugin.version>2.22.2</surefire-plugin.version>
     </properties>
 
@@ -33,6 +37,20 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.core</artifactId>
+            <version>${jdt.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
+            <version>${jdt-apt.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
