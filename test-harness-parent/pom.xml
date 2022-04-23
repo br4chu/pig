@@ -5,6 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pig-test-harness-parent</artifactId>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Package Info Generator - Test Harness Parent</name>
