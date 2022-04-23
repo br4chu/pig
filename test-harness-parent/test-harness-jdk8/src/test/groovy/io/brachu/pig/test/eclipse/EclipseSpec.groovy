@@ -24,4 +24,18 @@ class EclipseSpec extends Specification {
         project.clean()
     }
 
+    def "project compiled under jdk8 should use javax.annotation.Generated annotation"() {
+        given:
+        def project = new ProjectUnderTest('basic')
+
+        when:
+        project.compileWith(compiler)
+
+        then:
+        assert project.getPackageInfoContent('io.brachu.pig.test.foo').contains('import javax.annotation.Generated')
+
+        cleanup:
+        project.clean()
+    }
+
 }

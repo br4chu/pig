@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>pig-test-harness-jdk11</artifactId>
+
+    <name>Package Info Generator - Test Harness JDK 11</name>
+    <description>Test harness for JDK 11</description>
+
+    <parent>
+        <groupId>io.brachu</groupId>
+        <artifactId>pig-test-harness-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <properties>
+        <!-- Various -->
+        <java.version>11</java.version>
+        <maven.test.skip>false</maven.test.skip>
+
+        <!-- Dependencies -->
+        <jdt.version>3.27.0</jdt.version>
+        <jdt-apt.version>1.4.50</jdt-apt.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.core</artifactId>
+            <version>${jdt.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
+            <version>${jdt-apt.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.brachu</groupId>
+            <artifactId>pig-test-harness-commons</artifactId>
+            <version>${revision}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

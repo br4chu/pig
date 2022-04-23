@@ -4,27 +4,34 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.brachu</groupId>
-    <artifactId>pig-test-harness</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>pig-test-harness-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Package Info Generator - Test Harness Parent</name>
+    <description>Aggregator project for various test harnesses</description>
+
+    <parent>
+        <groupId>io.brachu</groupId>
+        <artifactId>pig-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <modules>
+        <module>test-harness-commons</module>
+        <module>test-harness-jdk8</module>
+        <module>test-harness-jdk11</module>
+    </modules>
 
     <properties>
         <!-- Various -->
-        <java.version>1.8</java.version>
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <maven.install.skip>true</maven.install.skip>
-        <maven.main.skip>true</maven.main.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependencies -->
-        <jdt.version>3.26.0</jdt.version>
-        <jdt-apt.version>1.3.1300</jdt-apt.version>
-        <spock.version>2.0-groovy-3.0</spock.version>
+        <spock.version>2.1-groovy-3.0</spock.version>
 
         <!-- Maven plugin versions -->
-        <compiler-plugin.version>3.10.1</compiler-plugin.version>
-        <build-helper-plugin.version>3.2.0</build-helper-plugin.version>
-        <gmavenplus-plugin.version>1.13.0</gmavenplus-plugin.version>
+        <build-helper-plugin.version>3.3.0</build-helper-plugin.version>
+        <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
         <surefire-plugin.version>2.22.2</surefire-plugin.version>
     </properties>
 
@@ -41,20 +48,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>${jdt.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jdt</groupId>
-            <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-            <version>${jdt-apt.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>io.brachu</groupId>
             <artifactId>pig</artifactId>
@@ -77,6 +70,18 @@
                 <version>${build-helper-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/groovy</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>add-test-source</id>
                         <phase>generate-test-sources</phase>
                         <goals>
@@ -98,26 +103,11 @@
                 <executions>
                     <execution>
                         <goals>
+                            <goal>compile</goal>
                             <goal>compileTests</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <showWarnings>true</showWarnings>
-                    <compilerArgs>
-                        <arg>-Xlint:all</arg>
-                        <arg>-Xlint:-processing</arg>
-                        <arg>-Werror</arg>
-                    </compilerArgs>
-                </configuration>
             </plugin>
 
             <plugin>

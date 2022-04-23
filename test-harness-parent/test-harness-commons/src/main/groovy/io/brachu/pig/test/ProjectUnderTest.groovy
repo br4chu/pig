@@ -32,6 +32,11 @@ class ProjectUnderTest {
         Files.isRegularFile(generatedSourcesDir.resolve(relativePath))
     }
 
+    String getPackageInfoContent(String packageName) {
+        def relativePath = Paths.get(packageName.replace('.' as char, File.separatorChar)).resolve('package-info.java')
+        generatedSourcesDir.resolve(relativePath).toFile().text
+    }
+
     void clean() {
         targetDir.toFile().deleteDir()
     }

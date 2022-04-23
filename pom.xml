@@ -6,23 +6,152 @@
 
     <groupId>io.brachu</groupId>
     <artifactId>pig-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>${project.groupId}:${project.artifactId}</name>
-    <description>Annotation processor that generates package-info.java files for every package</description>
+    <name>Package Info Generator - Parent</name>
+    <description>Aggregator project for Package Info Generator</description>
     <url>https://github.com/br4chu/pig</url>
 
     <modules>
         <module>processor</module>
-        <module>test-harness</module>
+        <module>test-harness-parent</module>
     </modules>
 
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Brachu</name>
+        <url>https://github.com/br4chu</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Marcin Jaguś</name>
+            <email>marcin.jagus@protonmail.com</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/br4chu/pig</url>
+        <connection>scm:git:git@github.com:br4chu/pig.git</connection>
+        <developerConnection>scm:git:git@github.com:br4chu/pig.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
+        <!-- Various -->
+        <java.version>1.8</java.version>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
         <maven.main.skip>true</maven.main.skip>
         <maven.test.skip>true</maven.test.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>0.0.1-SNAPSHOT</revision>
+
+        <!-- Dependencies -->
+        <checkstyle.version>9.3</checkstyle.version>
+
+        <!-- Maven plugin versions -->
+        <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
+        <compiler-plugin.version>3.10.1</compiler-plugin.version>
+        <javahome-resolver-plugin.version>1.0.2</javahome-resolver-plugin.version>
+        <spotbugs-plugin.version>4.6.0.0</spotbugs-plugin.version>
+        <toolchains-plugin.version>3.0.0</toolchains-plugin.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <violationSeverity>warning</violationSeverity>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                        <arg>-Xlint:-processing</arg>
+                        <arg>-Werror</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <version>${toolchains-plugin.version}</version>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>${java.version}</version>
+                        </jdk>
+                    </toolchains>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-plugin.version}</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <maxRank>20</maxRank>
+                    <threshold>Medium</threshold>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>analyze-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
