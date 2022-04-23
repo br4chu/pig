@@ -50,10 +50,8 @@
         <java.version>1.8</java.version>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
-        <maven.main.skip>true</maven.main.skip>
-        <maven.test.skip>true</maven.test.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <revision>0.0.1-SNAPSHOT</revision>
+        <revision>0.1.0-SNAPSHOT</revision>
 
         <!-- Dependencies -->
         <checkstyle.version>9.3</checkstyle.version>

@@ -18,7 +18,6 @@
     <properties>
         <!-- Various -->
         <java.version>11</java.version>
-        <maven.test.skip>false</maven.test.skip>
 
         <!-- Dependencies -->
         <jdt.version>3.27.0</jdt.version>

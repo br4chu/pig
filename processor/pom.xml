@@ -32,8 +32,6 @@
         <gpg.keyname>9A481873</gpg.keyname>
         <maven.deploy.skip>false</maven.deploy.skip>
         <maven.install.skip>false</maven.install.skip>
-        <maven.main.skip>false</maven.main.skip>
-        <maven.test.skip>false</maven.test.skip>
 
         <!-- Dependency versions -->
         <auto-service.version>1.0</auto-service.version>

@@ -15,10 +15,6 @@
     </parent>
 
     <properties>
-        <!-- Various -->
-        <maven.main.skip>false</maven.main.skip>
-        <maven.test.skip>false</maven.test.skip>
-
         <!-- Dependencies -->
         <groovy.version>3.0.10</groovy.version>
         <jdt.version>3.26.0</jdt.version>
