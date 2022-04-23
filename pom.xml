@@ -42,7 +42,7 @@
         <url>https://github.com/br4chu/pig</url>
         <connection>scm:git:git@github.com:br4chu/pig.git</connection>
         <developerConnection>scm:git:git@github.com:br4chu/pig.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>${revision}</tag>
     </scm>
 
     <properties>
@@ -51,7 +51,7 @@
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <revision>0.1.0-SNAPSHOT</revision>
+        <revision>HEAD</revision>
 
         <!-- Dependencies -->
         <checkstyle.version>9.3</checkstyle.version>
@@ -60,6 +60,7 @@
         <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
         <compiler-plugin.version>3.10.1</compiler-plugin.version>
         <javahome-resolver-plugin.version>1.0.2</javahome-resolver-plugin.version>
+        <scm-plugin.version>1.12.2</scm-plugin.version>
         <spotbugs-plugin.version>4.6.0.0</spotbugs-plugin.version>
         <toolchains-plugin.version>3.0.0</toolchains-plugin.version>
     </properties>
@@ -107,6 +108,15 @@
                         <arg>-Xlint:-processing</arg>
                         <arg>-Werror</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>${scm-plugin.version}</version>
+                <configuration>
+                    <tag>${project.version}</tag>
                 </configuration>
             </plugin>
 
