@@ -83,16 +83,20 @@ public final class PackageInfoGenerator extends AbstractProcessor {
         for (Entry<String, TypeElement> entry : packagesToProcess.entrySet()) {
             String pkgName = entry.getKey();
             TypeElement type = entry.getValue();
-            PackageElement pkg = (PackageElement) type.getEnclosingElement();
             try {
-                JavaFileObject fileObject = filer.createSourceFile(pkgName + ".package-info", pkg);
-                try (Writer writer = openWriter(fileObject)) {
-                    templateProvider.provideFor(type).write(writer, pkgName);
-                    writer.flush();
-                }
+                generatePackageInfo(pkgName, type, filer, templateProvider);
             } catch (IOException e) {
+                Element pkg = type.getEnclosingElement();
                 messager.printMessage(Diagnostic.Kind.ERROR, "I/O Exception during creation of package-info.java file: " + e.getMessage(), pkg);
             }
+        }
+    }
+
+    private void generatePackageInfo(String pkgName, TypeElement type, Filer filer, PackageInfoTemplateProvider templateProvider) throws IOException {
+        JavaFileObject fileObject = filer.createSourceFile(pkgName + ".package-info", type.getEnclosingElement());
+        try (Writer writer = openWriter(fileObject)) {
+            templateProvider.provideFor(type).write(writer, pkgName);
+            writer.flush();
         }
     }
 
