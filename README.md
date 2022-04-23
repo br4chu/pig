@@ -84,7 +84,7 @@ dependencies {
 
 ## Step 3
 
-Just compile your project. All generated package-info.java files should be generated in your "target" directory as a part of generated sources.
+Just compile your project. All generated package-info.java files should be generated in your "target" directory as part of generated sources.
 
 # Placeholders
 
@@ -106,4 +106,4 @@ Note: When compiling project with JDK9+, the `Generated` annotation will actuall
 You can create multiple `pig.template` files in your project. For every package that contains at least one compilation unit, PIG will try to locate closest
 `pig.template` file starting from directory representing such package and going up, until it finds one or reaches the root folder. This allows you, for example,
 to create a catch-all `pig.template` file in the root directory of your project and a more specific `pig.template` file in `src/main/java/foo/bar` so
-package `foo.bar` and all its subpackages will have `package-info.java` files with a different content.
+package `foo.bar` and all its subpackages will have `package-info.java` file with a different content.
