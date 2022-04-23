@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -29,8 +30,11 @@
     <properties>
         <!-- Various -->
         <gpg.keyname>9A481873</gpg.keyname>
+        <gpg.skip>true</gpg.skip>
         <maven.deploy.skip>false</maven.deploy.skip>
         <maven.install.skip>false</maven.install.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <maven.source.skip>true</maven.source.skip>
 
         <!-- Dependency versions -->
         <auto-service.version>1.0</auto-service.version>
@@ -48,18 +52,12 @@
 
     <profiles>
         <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <maven.source.skip>true</maven.source.skip>
-                <maven.javadoc.skip>true</maven.javadoc.skip>
-                <gpg.skip>true</gpg.skip>
-            </properties>
-        </profile>
-        <profile>
             <id>release</id>
+            <properties>
+                <gpg.skip>false</gpg.skip>
+                <maven.javadoc.skip>false</maven.javadoc.skip>
+                <maven.source.skip>false</maven.source.skip>
+            </properties>
         </profile>
     </profiles>
 
