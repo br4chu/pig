@@ -15,26 +15,6 @@
         <module>test-harness</module>
     </modules>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <organization>
-        <name>Brachu</name>
-        <url>https://github.com/br4chu</url>
-    </organization>
-
-    <developers>
-        <developer>
-            <name>Marcin Jaguś</name>
-            <email>marcin.jagus@protonmail.com</email>
-        </developer>
-    </developers>
-
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
