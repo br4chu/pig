@@ -5,7 +5,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pig-test-harness-parent</artifactId>
-    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Package Info Generator - Test Harness Parent</name>
@@ -14,7 +13,7 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-parent</artifactId>
-        <version>${revision}</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <modules>
@@ -52,7 +51,7 @@
         <dependency>
             <groupId>io.brachu</groupId>
             <artifactId>pig</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 

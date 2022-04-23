@@ -6,7 +6,7 @@
 
     <groupId>io.brachu</groupId>
     <artifactId>pig-parent</artifactId>
-    <version>${revision}</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Package Info Generator - Parent</name>
@@ -42,7 +42,7 @@
         <url>https://github.com/br4chu/pig</url>
         <connection>scm:git:git@github.com:br4chu/pig.git</connection>
         <developerConnection>scm:git:git@github.com:br4chu/pig.git</developerConnection>
-        <tag>${revision}</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
@@ -51,7 +51,6 @@
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <revision>HEAD</revision>
 
         <!-- Dependencies -->
         <checkstyle.version>9.3</checkstyle.version>

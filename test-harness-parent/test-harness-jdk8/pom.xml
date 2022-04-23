@@ -12,7 +12,7 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-test-harness-parent</artifactId>
-        <version>${revision}</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>io.brachu</groupId>
             <artifactId>pig-test-harness-commons</artifactId>
-            <version>${revision}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
