@@ -52,7 +52,7 @@
         <dependency>
             <groupId>io.brachu</groupId>
             <artifactId>pig</artifactId>
-            <version>${project.version}</version>
+            <version>${revision}</version>
             <scope>test</scope>
         </dependency>
 
