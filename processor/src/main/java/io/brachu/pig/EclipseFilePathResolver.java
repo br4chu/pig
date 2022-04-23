@@ -1,6 +1,7 @@
 package io.brachu.pig;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.lang.model.element.TypeElement;
 
@@ -14,7 +15,7 @@ final class EclipseFilePathResolver {
 
     Path resolve(TypeElement type) {
         TypeElementImpl element = (TypeElementImpl) type;
-        return Path.of(element.getFileName());
+        return Paths.get(element.getFileName());
     }
 
 }

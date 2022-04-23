@@ -1,6 +1,7 @@
 package io.brachu.pig;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
@@ -16,7 +17,7 @@ final class SunFilePathResolver {
     Path resolve(TypeElement type) {
         ClassSymbol symbol = (ClassSymbol) type;
         JavaFileObject sourceFile = symbol.sourcefile;
-        return Path.of(sourceFile.toUri());
+        return Paths.get(sourceFile.toUri());
     }
 
 }

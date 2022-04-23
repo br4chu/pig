@@ -12,7 +12,7 @@ import io.brachu.pig.PackageInfoGenerator
 class JavacCompiler extends CompilerUnderTest {
 
     @Override
-    void compile(Path targetDir, Path generatedSourcesDir, List<Path> javaFiles) {
+    void compile(Path targetDir, Path generatedSourcesDir, List<File> javaFiles) {
         def compiler = ToolProvider.systemJavaCompiler
         assert compiler, "Compiler instance unavailable. Are we running in JRE?"
 
@@ -26,14 +26,14 @@ class JavacCompiler extends CompilerUnderTest {
                                          StandardJavaFileManager fileManager,
                                          Path targetDir,
                                          Path generatedSourcesDir,
-                                         List<Path> javaFiles) {
+                                         List<File> javaFiles) {
         compiler.getTask(
                 System.out.newWriter(),
                 fileManager,
                 null,
                 ['-d', targetDir.toAbsolutePath().toString(), '-s', generatedSourcesDir.toAbsolutePath().toString()],
                 null,
-                fileManager.getJavaFileObjectsFromPaths(javaFiles)
+                fileManager.getJavaFileObjectsFromFiles(javaFiles)
         )
     }
 

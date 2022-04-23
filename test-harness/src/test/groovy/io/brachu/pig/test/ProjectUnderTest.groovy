@@ -2,10 +2,11 @@ package io.brachu.pig.test
 
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 
 class ProjectUnderTest {
 
-    static final WORKING_DIR = Path.of(System.getProperty('user.dir'))
+    static final WORKING_DIR = Paths.get(System.getProperty('user.dir'))
 
     final Path classPath
     final Path targetDir
@@ -21,11 +22,13 @@ class ProjectUnderTest {
     }
 
     void compileWith(CompilerUnderTest compiler) {
+        ensureDirectoryExists(targetDir)
+        ensureDirectoryExists(generatedSourcesDir)
         compiler.compile(targetDir, generatedSourcesDir, findJavaFiles())
     }
 
     boolean hasGeneratedPackageInfo(String packageName) {
-        def relativePath = Path.of(packageName.replace('.' as char, File.separatorChar)).resolve('package-info.java')
+        def relativePath = Paths.get(packageName.replace('.' as char, File.separatorChar)).resolve('package-info.java')
         Files.isRegularFile(generatedSourcesDir.resolve(relativePath))
     }
 
@@ -33,10 +36,17 @@ class ProjectUnderTest {
         targetDir.toFile().deleteDir()
     }
 
-    private List<Path> findJavaFiles() {
+    private void ensureDirectoryExists(Path directory) {
+        if (!directory.toFile().mkdirs()) {
+            throw new IllegalStateException("Cannot create directory: " + directory)
+        }
+    }
+
+    private List<File> findJavaFiles() {
         Files.walk(classPath)
                 .filter { it.fileName.toString().endsWith('.java') }
                 .filter { it.toFile().isFile() }
+                .map { it.toFile() }
                 .collect()
     }
 

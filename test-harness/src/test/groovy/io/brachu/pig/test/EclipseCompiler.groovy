@@ -8,9 +8,9 @@ import org.eclipse.jdt.core.compiler.batch.BatchCompiler
 class EclipseCompiler extends CompilerUnderTest {
 
     @Override
-    void compile(Path targetDir, Path generatedSourcesDir, List<Path> javaFiles) {
+    void compile(Path targetDir, Path generatedSourcesDir, List<File> javaFiles) {
         def javaVersion = System.getProperty('java.specification.version')
-        def cmd = "--release $javaVersion -processor ${PackageInfoGenerator.class.canonicalName} -d $targetDir -s $generatedSourcesDir ${javaFiles.join(' ')}"
+        def cmd = "-source $javaVersion -processor ${PackageInfoGenerator.class.canonicalName} -d $targetDir -s $generatedSourcesDir ${javaFiles.join(' ')}"
         BatchCompiler.compile(cmd, System.out.newPrintWriter(), System.err.newPrintWriter(), null)
     }
 

@@ -87,7 +87,7 @@ public final class PackageInfoGenerator extends AbstractProcessor {
                 generatePackageInfo(pkgName, type, filer, templateProvider);
             } catch (IOException e) {
                 Element pkg = type.getEnclosingElement();
-                messager.printMessage(Diagnostic.Kind.ERROR, "I/O Exception during creation of package-info.java file: " + e.getMessage(), pkg);
+                messager.printMessage(Diagnostic.Kind.ERROR, "[PIG] I/O Exception during creation of package-info.java file: " + e.getMessage(), pkg);
             }
         }
     }

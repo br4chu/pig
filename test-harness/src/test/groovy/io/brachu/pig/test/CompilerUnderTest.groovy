@@ -4,6 +4,6 @@ import java.nio.file.Path
 
 abstract class CompilerUnderTest {
 
-    abstract void compile(Path targetDir, Path generatedSourcesDir, List<Path> javaFiles)
+    abstract void compile(Path targetDir, Path generatedSourcesDir, List<File> javaFiles)
 
 }
