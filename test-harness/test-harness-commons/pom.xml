@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,19 +11,19 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-test-harness-parent</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
     <properties>
         <!-- Dependencies -->
-        <groovy.version>3.0.10</groovy.version>
-        <jdt.version>3.26.0</jdt.version>
+        <groovy.version>4.0.5</groovy.version>
+        <jdt.version>3.31.0</jdt.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.codehaus.groovy</groupId>
+                <groupId>org.apache.groovy</groupId>
                 <artifactId>groovy-bom</artifactId>
                 <version>${groovy.version}</version>
                 <type>pom</type>
@@ -33,7 +34,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
+            <groupId>org.apache.groovy</groupId>
             <artifactId>groovy</artifactId>
         </dependency>
 

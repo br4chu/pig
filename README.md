@@ -41,7 +41,7 @@ The preferred way is to add it as an annotation processor directly to your maven
                     <path>
                         <groupId>io.brachu</groupId>
                         <artifactId>pig</artifactId>
-                        <version>0.1.1</version>
+                        <version>0.2.0</version>
                     </path>
                 </annotationProcessorPaths>
             </configuration>
@@ -61,7 +61,7 @@ Alternatively you can add PIG to your project's dependencies:
     <dependency>
         <groupId>io.brachu</groupId>
         <artifactId>pig</artifactId>
-        <version>0.1.1</version>
+        <version>0.2.0</version>
         <optional>true</optional>
     </dependency>
     ...
@@ -77,7 +77,7 @@ It's a bit easier in Gradle. You can just add PIG as an annotation processor to 
 ```groovy
 dependencies {
     ...
-    annotationProcessor 'io.brachu:pig:0.1.1'
+    annotationProcessor 'io.brachu:pig:0.2.0'
     ...
 }
 ```

@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
 
+import io.brachu.pig.eclipse.EclipseFilePathResolver;
+import io.brachu.pig.javac.SunFilePathResolver;
+
 final class PackageInfoTemplateProvider {
 
     private static final String UNSUPPORTED_OPERATION_MESSAGE = "Package Info Generator does not support this compiler tool. "

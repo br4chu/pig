@@ -4,10 +4,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pig-test-harness-jdk8</artifactId>
+    <artifactId>pig-test-harness-jdk17</artifactId>
 
-    <name>Package Info Generator - Test Harness JDK 8</name>
-    <description>Test harness for JDK 8</description>
+    <name>Package Info Generator - Test Harness JDK 17</name>
+    <description>Test harness for JDK 17</description>
 
     <parent>
         <groupId>io.brachu</groupId>
@@ -16,9 +16,12 @@
     </parent>
 
     <properties>
+        <!-- Configs -->
+        <java.version>17</java.version>
+
         <!-- Dependencies -->
-        <jdt.version>3.26.0</jdt.version>
-        <jdt-apt.version>1.3.1300</jdt-apt.version>
+        <jdt.version>3.31.0</jdt.version>
+        <jdt-apt.version>1.4.200</jdt-apt.version>
     </properties>
 
     <dependencies>

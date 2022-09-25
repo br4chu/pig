@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -12,26 +13,27 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-parent</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
     <modules>
         <module>test-harness-commons</module>
         <module>test-harness-jdk8</module>
         <module>test-harness-jdk11</module>
+        <module>test-harness-jdk17</module>
     </modules>
 
     <properties>
-        <!-- Various -->
+        <!-- Configs -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependencies -->
-        <spock.version>2.1-groovy-3.0</spock.version>
+        <spock.version>2.2-groovy-4.0</spock.version>
 
         <!-- Maven plugin versions -->
-        <build-helper-plugin.version>3.3.0</build-helper-plugin.version>
         <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
-        <surefire-plugin.version>2.22.2</surefire-plugin.version>
+        <maven-build-helper-plugin.version>3.3.0</maven-build-helper-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -66,7 +68,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-plugin.version}</version>
+                <version>${maven-build-helper-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>add-source</id>
@@ -112,7 +114,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire-plugin.version}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <includes>
                         <include>**/*Spec.java</include>
@@ -120,6 +122,15 @@
                     <excludes>
                         <exclude>**/Abstract*.java</exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
+                <configuration>
+                    <skipIfEmpty>true</skipIfEmpty>
                 </configuration>
             </plugin>
         </plugins>
