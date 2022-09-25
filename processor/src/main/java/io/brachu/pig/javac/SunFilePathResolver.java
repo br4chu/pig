@@ -12,7 +12,7 @@ import io.brachu.pig.FilePathResolver;
 
 public final class SunFilePathResolver implements FilePathResolver {
 
-    private static final AtomicBoolean accessPermitted = new AtomicBoolean();
+    private static final AtomicBoolean ACCESS_PERMITTED = new AtomicBoolean();
 
     @Override
     public boolean canResolve(TypeElement type) {
@@ -21,7 +21,7 @@ public final class SunFilePathResolver implements FilePathResolver {
 
     @Override
     public Path resolve(TypeElement type) {
-        if (accessPermitted.compareAndSet(false, true)) {
+        if (ACCESS_PERMITTED.compareAndSet(false, true)) {
             JpmsUtils.addOpensForPig();
         }
         ClassSymbol symbol = (ClassSymbol) type;
