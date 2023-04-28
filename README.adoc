@@ -1,0 +1,161 @@
+:release-version: 0.3.0
+
+= PIG
+
+PIG, also known as Package Info Generator, is a Java annotation processor that generates package-info.java file for every Java package in a project, based on a predefined template file.
+
+== Usage
+
+=== Step 1
+
+Add either "pig.template" (logic-less simple text replacement template) or "pig.ftl" (freemarker template) file to your project's root directory.
+You can set the content to the example below:
+
+For "pig.template":
+
+[source]
+----
+${GENERATED}
+@javax.annotation.ParametersAreNonnullByDefault
+package ${PACKAGE_NAME};
+----
+
+For "pig.ftl":
+
+[source]
+----
+${generated}
+@javax.annotation.ParametersAreNonnullByDefault
+package ${packageName};
+----
+
+You must choose between using "pig.template" or "pig.ftl" file.
+The former is generally faster but latter allows usage of conditional instructions as allowed by Freemarker template engine allowing generation of different content for "package-info.java" files depending on placeholder values.
+
+For the list of all available placeholders, see the "Placeholders" section below.
+
+=== Step 2
+
+Add PIG to your classpath as an annotation processor.
+
+==== Maven
+
+There are two ways you can do this in your Maven project.
+
+The preferred way is to add it as an annotation processor directly to your maven-compiler-plugin configuration:
+
+[source,xml,subs=attributes+]
+----
+<build>
+    ...
+    <plugins>
+        ...
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>io.brachu</groupId>
+                        <artifactId>pig</artifactId>
+                        <version>{release-version}</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+        ...
+    </plugins>
+    ...
+</build>
+----
+
+Alternatively you can add PIG to your project's dependencies:
+
+[source,xml,subs=attributes+]
+----
+
+<dependencies>
+    ...
+    <dependency>
+        <groupId>io.brachu</groupId>
+        <artifactId>pig</artifactId>
+        <version>{release-version}</version>
+        <optional>true</optional>
+    </dependency>
+    ...
+</dependencies>
+----
+
+The compiler plugin should then pick it up automatically, assuming no annotation processors are defined explicitly via its `annotationProcessorPaths` tag.
+
+==== Gradle
+
+It's a bit easier in Gradle.
+You can just add PIG as an annotation processor to your dependencies.
+
+[source,groovy,subs=attributes+]
+----
+dependencies {
+    annotationProcessor 'io.brachu:pig:{release-version}'
+}
+----
+
+=== Step 3
+
+Just compile your project.
+All generated package-info.java files should be generated in your "target" directory as part of generated sources.
+
+== Placeholders
+
+Below is the list of all available placeholders you can use in your template file:
+
+=== Logic-less template aka "pig.template"
+
+[cols=2,1]
+
+|===
+| Placeholder | Replaced with
+
+| `+${GENERATED}+`
+| `+@javax.annotation.Generated("io.brachu.pig.PackageInfoGenerator")+`
+
+| `+${GENERATED_SHORT}+`
+| `+@Generated("io.brachu.pig.PackageInfoGenerator")+`
+
+| `+${GENERATED_ANNOTATION_CANONICAL_NAME}+`
+| `+javax.annotation.Generated+`
+
+| `+${PACKAGE_NAME}+`
+| Name of a package that generated package-info.java file will be placed in
+|===
+
+=== Freemarker template aka "pig.ftl"
+
+[cols=2,1]
+
+|===
+| Placeholder | Replaced with
+
+| `+${generated}+`
+| `+@javax.annotation.Generated("io.brachu.pig.PackageInfoGenerator")+`
+
+| `+${generatedShort}+`
+| `+@Generated("io.brachu.pig.PackageInfoGenerator")+`
+
+| `+${generatedAnnotationCanonicalName}+`
+| `+javax.annotation.Generated+`
+
+| `+${packageName}+`
+| Name of a package that generated package-info.java file will be placed in
+|===
+
+Use of `+@Generated+` annotation is purely optional, but it's a good practice to annotate generated sources with it.
+
+Note: When compiling project with JDK9+, the `+Generated+` annotation will actually come from `+javax.annotation.processing+` package.
+
+== Advanced usage
+
+You can create multiple `+pig.template+`/`+pig.ftl+` files in your project.
+For every package that contains at least one compilation unit, PIG will try to locate closest
+`+pig.template+` or `+pig.ftl+` file starting from directory representing such package and going up, until it finds one or reaches the root folder.
+This allows you, for example, to create a catch-all `template file in the root directory of your project and a more specific template file in `+src/main/java/foo/bar+` so package `+foo.bar+` and all its subpackages will have a different `+package-info.java+` file generated for them.

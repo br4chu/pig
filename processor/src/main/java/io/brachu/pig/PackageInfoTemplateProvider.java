@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.TypeElement;
@@ -23,8 +23,6 @@ final class PackageInfoTemplateProvider {
 
     private final SunFilePathResolver sunFilePathResolver = new SunFilePathResolver();
     private final EclipseFilePathResolver eclipseFilePathResolver = new EclipseFilePathResolver();
-
-    private final GeneratedAnnotationNameProvider generatedAnnotationNameProvider = GeneratedAnnotationNameProvider.create();
 
     PackageInfoTemplateProvider(ProcessingEnvironment processingEnv) {
         missingTemplate = new MissingTemplate(processingEnv);
@@ -48,7 +46,7 @@ final class PackageInfoTemplateProvider {
             if (cachedTemplate != null) {
                 return cachedTemplate;
             } else {
-                PackageInfoTemplate template = findTemplateIn(path);
+                PackageInfoTemplate template = findTemplate(path);
                 if (template == null) {
                     template = resolveTemplate(path.getParent());
                 }
@@ -58,20 +56,30 @@ final class PackageInfoTemplateProvider {
         }
     }
 
-    private PackageInfoTemplate findTemplateIn(Path path) throws IOException {
+    private PackageInfoTemplate findTemplate(Path path) throws IOException {
+        Optional<PackageInfoTemplate> template = findSimpleTemplate(path);
+        if (!template.isPresent()) {
+            template = findFreemarkerTemplate(path);
+        }
+        return template.orElse(null);
+    }
+
+    private Optional<PackageInfoTemplate> findSimpleTemplate(Path path) throws IOException {
         Path file = path.resolve("pig.template");
         if (Files.isRegularFile(file)) {
-            String content = readContent(file);
-            return new StandardPackageInfoTemplate(content, generatedAnnotationNameProvider);
+            return Optional.of(new SimplePackageInfoTemplate(file));
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 
-    private String readContent(Path file) throws IOException {
-        return Files.readAllLines(file)
-                .stream()
-                .collect(Collectors.joining(System.lineSeparator()));
+    private Optional<PackageInfoTemplate> findFreemarkerTemplate(Path path) throws IOException {
+        Path file = path.resolve("pig.ftl");
+        if (Files.isRegularFile(file)) {
+            return Optional.of(new FreemarkerPackageInfoTemplate(file));
+        } else {
+            return Optional.empty();
+        }
     }
 
 }

@@ -1,12 +1,12 @@
-package io.brachu.pig.test.javac
+package io.brachu.pig.test
 
-import io.brachu.pig.test.JavacCompiler
-import io.brachu.pig.test.ProjectUnderTest
+import spock.lang.Shared
 import spock.lang.Specification
 
-class JavacSpec extends Specification {
+class Jdk8Spec extends Specification {
 
-    final compiler = new JavacCompiler()
+    @Shared
+    def compilers = [new JavacCompiler(), new EclipseCompiler()]
 
     def "should compile basic project with javac"() {
         given:
@@ -22,6 +22,9 @@ class JavacSpec extends Specification {
 
         cleanup:
         project.clean()
+
+        where:
+        compiler << compilers
     }
 
     def "project compiled under jdk8 should use javax.annotation.Generated annotation"() {
@@ -36,6 +39,28 @@ class JavacSpec extends Specification {
 
         cleanup:
         project.clean()
+
+        where:
+        compiler << compilers
+    }
+
+    def "should generate package-info.java files from freemarker template"() {
+        given:
+        def project = new ProjectUnderTest('freemarker')
+
+        when:
+        project.compileWith(compiler)
+
+        then:
+        project.getPackageInfoContent('io.brachu.pig.test.bar').contains('// bar')
+        project.getPackageInfoContent('io.brachu.pig.test.baz').contains('// baz')
+        project.getPackageInfoContent('io.brachu.pig.test.foo').contains('// other')
+
+        cleanup:
+        project.clean()
+
+        where:
+        compiler << compilers
     }
 
 }
