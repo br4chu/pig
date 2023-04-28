@@ -8,7 +8,7 @@ import javax.tools.Diagnostic;
 final class MissingTemplate implements PackageInfoTemplate {
 
     private static final String MESSAGE = "[PIG] Cannot generate package-info.java file for package '%s'. "
-            + "Either pig.ftl or pig.template file must be present in the package directory or in one of its parent directories.";
+            + "Either pig.template or pig.ftl file must be present in the package directory or in one of its parent directories.";
 
     private final ProcessingEnvironment processingEnv;
 
