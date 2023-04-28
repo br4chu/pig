@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-parent</artifactId>
-        <version>0.3.0</version>
+        <version>0.3.1-SNAPSHOT</version>
     </parent>
 
     <name>Package Info Generator</name>
@@ -19,7 +19,7 @@
         <url>https://github.com/br4chu/pig</url>
         <connection>scm:git:git@github.com:br4chu/pig.git</connection>
         <developerConnection>scm:git:git@github.com:br4chu/pig.git</developerConnection>
-        <tag>0.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
