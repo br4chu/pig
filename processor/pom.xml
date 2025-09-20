@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -9,7 +8,7 @@
     <parent>
         <groupId>io.brachu</groupId>
         <artifactId>pig-parent</artifactId>
-        <version>0.3.3-SNAPSHOT</version>
+        <version>0.3.3</version>
     </parent>
 
     <name>Package Info Generator</name>
@@ -20,7 +19,7 @@
         <url>https://github.com/br4chu/pig</url>
         <connection>scm:git:git@github.com:br4chu/pig.git</connection>
         <developerConnection>scm:git:git@github.com:br4chu/pig.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>0.3.3</tag>
     </scm>
 
     <properties>
