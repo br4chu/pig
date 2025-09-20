@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,8 +16,8 @@
 
     <properties>
         <!-- Dependencies -->
+        <eclipse-jdt.version>3.43.0</eclipse-jdt.version>
         <groovy.version>4.0.12</groovy.version>
-        <jdt.version>3.31.0</jdt.version>
     </properties>
 
     <dependencyManagement>
@@ -40,7 +41,7 @@
         <dependency>
             <groupId>org.eclipse.jdt</groupId>
             <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>${jdt.version}</version>
+            <version>${eclipse-jdt.version}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -22,7 +22,8 @@
         <module>test-harness-jdk11</module>
         <module>test-harness-jdk17</module>
         <module>test-harness-jdk21</module>
-        <module>test-harness-jdk25</module>
+        <!-- Commented out until Eclipse compiler supports it -->
+        <!--<module>test-harness-jdk25</module>-->
     </modules>
 
     <properties>
@@ -34,8 +35,8 @@
 
         <!-- Maven plugin versions -->
         <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
-        <maven-build-helper-plugin.version>3.3.0</maven-build-helper-plugin.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-build-helper-plugin.version>3.6.1</maven-build-helper-plugin.version>
+        <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>

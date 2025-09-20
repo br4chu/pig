@@ -20,22 +20,22 @@
         <java.version>25</java.version>
 
         <!-- Dependencies -->
-        <jdt.version>3.43.0</jdt.version>
-        <jdt-apt.version>1.4.300</jdt-apt.version>
+        <eclipse-jdt.version>3.43.0</eclipse-jdt.version>
+        <eclipse-jdt-apt.version>1.4.300</eclipse-jdt-apt.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.eclipse.jdt</groupId>
             <artifactId>org.eclipse.jdt.core</artifactId>
-            <version>${jdt.version}</version>
+            <version>${eclipse-jdt.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.eclipse.jdt</groupId>
             <artifactId>org.eclipse.jdt.compiler.apt</artifactId>
-            <version>${jdt-apt.version}</version>
+            <version>${eclipse-jdt-apt.version}</version>
             <scope>test</scope>
         </dependency>
 
