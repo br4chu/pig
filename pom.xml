@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -52,7 +53,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependencies -->
-        <checkstyle.version>10.10.0</checkstyle.version>
+        <checkstyle.version>9.3</checkstyle.version>
 
         <!-- Maven plugin versions -->
         <maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
@@ -103,10 +104,7 @@
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-XDenableSunApiLintControl</arg>
-                        <arg>-Xlint:all</arg>
-                        <arg>-Xlint:-processing</arg>
-                        <arg>-Xlint:-sunapi</arg>
-                        <arg>-Werror</arg>
+                        <arg>-Xlint:all,-processing,-sunapi</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>

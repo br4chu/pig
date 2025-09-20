@@ -3,7 +3,7 @@ package io.brachu.pig.test
 import spock.lang.Shared
 import spock.lang.Specification
 
-class Jdk8Spec extends Specification {
+class Jdk21Spec extends Specification {
 
     @Shared
     def compilers = [new JavacCompiler(), new EclipseCompiler()]
@@ -27,7 +27,7 @@ class Jdk8Spec extends Specification {
         compiler << compilers
     }
 
-    def "project compiled under jdk8 should use javax.annotation.processing.Generated annotation"() {
+    def "project compiled under jdk21 should use javax.annotation.processing.Generated annotation"() {
         given:
         def project = new ProjectUnderTest('basic')
 
@@ -35,7 +35,7 @@ class Jdk8Spec extends Specification {
         project.compileWith(compiler)
 
         then:
-        assert project.getPackageInfoContent('io.brachu.pig.test.foo').contains('import javax.annotation.Generated')
+        assert project.getPackageInfoContent('io.brachu.pig.test.foo').contains('import javax.annotation.processing.Generated')
 
         cleanup:
         project.clean()

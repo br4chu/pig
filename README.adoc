@@ -8,7 +8,7 @@ PIG, also known as Package Info Generator, is a Java annotation processor that g
 
 === Step 1
 
-Add either "pig.template" (logic-less, simple text replacement template) or "pig.ftl" (freemarker template) file to your project's root directory.
+Add either "pig.template" (logicless, simple text replacement template) or "pig.ftl" (freemarker template) file to your project's root directory.
 You can set the content to the example below:
 
 For "pig.template":
@@ -30,7 +30,7 @@ package ${packageName};
 ----
 
 You must choose between using "pig.template" or "pig.ftl" file.
-The former is generally faster but latter enables usage of conditional instructions as allowed by Freemarker template engine.
+The former is generally faster but latter enables usage of conditional instructions as supported by Freemarker template engine.
 
 For the list of all available placeholders, see the "Placeholders" section below.
 
@@ -103,7 +103,7 @@ dependencies {
 === Step 3
 
 Just compile your project.
-All generated package-info.java files should be generated in your "target" directory as part of generated sources.
+All generated package-info.java files should appear in your "target" directory as part of generated sources.
 
 == Placeholders
 
